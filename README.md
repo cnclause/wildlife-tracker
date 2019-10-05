@@ -24,7 +24,9 @@ The animals that are seen on the app are pulled from a seeded database. The map 
 2. In another terminal open up wildlifeTrackerFrontEnd folder and run 'lite-server'
 
 ## Contributors
-This app was built by Cody Shaben and Catherine Clause. If you want to access this app, you can clone from: https://github.com/codyshaben/wildlife-tracker .
+This app was built by Cody Shaben and Catherine Clause. If you want to access this app, you can clone from: https://github.com/codyshaben/wildlife-tracker. 
+
+A link to the demonstration video: https://youtu.be/fny8lOg1_4o 
 
 
     

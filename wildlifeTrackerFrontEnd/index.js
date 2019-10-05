@@ -8,8 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const removeAnimalURL = 'http://localhost:3000/removeAnimal/'
     const userAnimalsURL = 'http://localhost:3000/users/1'
     const mammalsButton = document.createElement("button")
+    mammalsButton.id = "mammalsButton"
     const reptilesButton = document.createElement("button")
+    reptilesButton.id = "reptilesButton"
     const birdsButton = document.createElement("button")
+    birdsButton.id = "birdsButton"
     const homeButton = document.querySelector("#home")
     const categories = document.querySelector(".categories")
     const animalContainer = document.createElement('div')
@@ -23,6 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     // event listeners
+
+    function showCardCategories(category) {
+        animalContainer.innerText = ''
+        const filteredCategories = allAnimals.flat().filter(animal => {
+            return animal.category === category
+        })
+        filteredCategories.forEach(createCards)
+    }
+
+    function buttons(buttonContainer){
+        buttonContainer.addEventListener('click', event => {
+            const buttonId = event.target.id
+            if (buttonId === 'mammalsButton') {
+                showCardCategories('Mammal')
+                } else if (buttonId === 'reptilesButton') {
+                    showCardCategories('Reptile')
+                } else if (buttonId === 'birdsButton') {
+                    showCardCategories('Bird')
+                }
+        })
+    }
     
     homeButton.addEventListener("click", event => {
         console.log(event)
@@ -33,37 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         categories.style.display = 'flex'
     })
 
-    reptilesButton.addEventListener('click', event => {
-        animalContainer.innerText = ''
-        const allReptiles = allAnimals.flat().filter(animal => {
-            return animal.category === "Reptile"
-        })
-        allReptiles.forEach(reptile => {
-            createCards(reptile)
-        })
-    })
+    // Show page functions
 
-    birdsButton.addEventListener('click', event => {
-        animalContainer.innerText = ''
-        const allBirds = allAnimals.flat().filter(animal => {
-            return animal.category === "Bird"
-        })
-        allBirds.forEach(bird => {
-            createCards(bird)
-        })
-    })
-
-    mammalsButton.addEventListener('click', event => {
-        animalContainer.innerText = ''
-        const allMammals = allAnimals.flat().filter(animal => {
-            return animal.category === "Mammal"
-        })
-        allMammals.forEach(mammal => {
-            createCards(mammal)
-        })
-    })
-
-
+    
     function showUserPage() {
         fetch(userAnimalsURL)
         .then(response => response.json())
@@ -134,8 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         birdsButton.innerText = "Birds" 
         
         buttonContainer.append(mammalsButton, reptilesButton, birdsButton)
+        buttons(buttonContainer)
         categories.append(p, buttonContainer)
         document.body.append(categories)
+    
     } 
 
         function createCards(animal) {
@@ -176,8 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             animal_id: animal.id
                         }
                     )
-                }).then(console.log(animalToAdd))
-                showUserPage()
+                }).then(setTimeout(showUserPage, 1000))
             })
             
             animalCard.appendChild(image)

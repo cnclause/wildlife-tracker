@@ -215,6 +215,7 @@ img {
     background-color: #0a012f6e;
     color: black;
     transform: rotateY(180deg);
+    overflow: auto;
   } 
 
   .flip-card-back > h1, h4, h5, p, h6{

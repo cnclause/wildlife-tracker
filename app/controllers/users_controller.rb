@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+    skip_before_action :authorize_request
     # before_action :authorize_request, except: :create
     # before_action :find_user, except: %i[create index]
+
 
     def index
         @users = User.all 
@@ -15,12 +17,13 @@ class UsersController < ApplicationController
     
     def create
         @user = User.create(user_params)
-        # redirect_to "http://localhost:3001"
-        # if @user.save
-        #     render json: @user, status: :created
-        # else
-        #     render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-        # end
+        
+        if @user.valid?
+            @user.save
+            render json: @user, status: :created
+        else
+            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def update
@@ -58,10 +61,10 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.permit(:username, :password)
+        params.require(:user).permit(:username, :password)
     end
 
-    def user_animal_params
-        params.permit(:user_id, :animal_id)
-    end
+    # def user_animal_params
+    #     params.permit(:user_id, :animal_id)
+    # end
 end

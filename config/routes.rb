@@ -4,11 +4,12 @@ Rails.application.routes.draw do
       # , param: :username
       
       post 'users', to: 'users#create'
+    
 
       delete 'removeAnimal/:animal_id', to: 'users#remove_animal'
       post 'addAnimal', to: 'users#add_animal'
       post '/auth/login', to: "authentication#login"
-      # get '/*a', to: 'application#not_found'
+      get '/*a', to: 'application#not_found'
 
 end
 

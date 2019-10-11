@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userAnimalContainer = document.createElement('div')
     const userInfo = document.querySelector(".userInfo")
     const flipCardContainer = document.createElement('div')
+    const signUpForm = document.querySelector('.signUpForm')
     
     flipCardContainer.className = "flip-card-container"
     animalContainer.className = "animalContainer"
@@ -58,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // Show page functions
-
     
     function showUserPage() {
         fetch(userAnimalsURL)
@@ -95,30 +95,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function hideSignUp(){
+        console.log('hidesignup')
         logInForm = document.querySelector(".loginForm")
         logInForm.style.display = "none"
-        signUp = document.querySelector("#signUp")
-        form = document.querySelector(".signUpForm")
-        signUp.addEventListener('click', event => {
-            form.style.display = "none"
 
-            logIn()
-        })
+        signUpForm.addEventListener('submit', event => {
+            event.preventDefault()
+            let formData = new FormData(signUpForm)
+            let username = formData.get('username')
+            let password = formData.get('password')
+    
+            user = {
+                username,
+                password
+            }
+    
+            createUser(user)
+            signUpForm.style.display = "none"
+        }) 
     } 
 
-    function logIn(){
-        logIn = document.querySelector("#login")
-        logInForm = document.querySelector(".loginForm")
-        logInForm.style.display = "block"
-        logIn.addEventListener('click', event => {
-            logInForm.style.display = 'none'
-            showHomePage()
-        })
+    // signUpForm.addEventListener('submit', event => {
+    //     event.preventDefault()
+    //     let formData = new FormData(signUpForm)
+    //     let username = formData.get('username')
+    //     let password = formData.get('password_digest')
+
+    //     user = {
+    //         username,
+    //         password
+    //     }
+
+    //     createUser(user)
+    // }) 
+
+    function createUser(user){
+        console.log("madeit")
+        fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user})
+        }).then(response => response.json())
+            .then(result => result.errors ? alert(result.errors) : logIn())
 
     }
-   
+
+    function logIn(){
+        logInForm = document.querySelector(".loginForm")
+        logInForm.style.display = "block"
+        logInForm.addEventListener('submit', event => { 
+            event.preventDefault()
+            let formData = new FormData(logInForm)
+            let username = formData.get('username')
+            let password = formData.get('password')
+    
+            user = {
+                username,
+                password
+            }
+
+            checkLogIn(user)
+            logInForm.style.display = 'none'
+        })
+    }
+
+    function checkLogIn(user){
+        fetch('http://localhost:3000/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify (user)
+        }).then(response => response.json())
+            .then(result => result.errors ? console.log(result.erros) : showHomePage())
+    }
 
     function showHomePage(){
+        console.log('homepagehere')
         const buttonContainer = document.createElement("div")
         buttonContainer.className = "buttonContainer"
         const p = document.createElement("p")
@@ -135,52 +190,51 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.append(categories)
     
     } 
+    function createCards(animal) {
+        console.log(animal)
+        const animalCard = document.createElement('div')
+        const commonName = document.createElement('h1')
+        const scientificName = document.createElement('h4')
+        const category = document.createElement('h5')
+        const description = document.createElement('p')
+        const approachable = document.createElement('p')
+        const status = document.createElement('h6')
+        const image = document.createElement('img')
+        const addAnimalButton = document.createElement('button')
+        
+        animalCard.className = "animal-card"
+        addAnimalButton.className = "add-animal-button"
 
-        function createCards(animal) {
-            console.log(animal)
-            const animalCard = document.createElement('div')
-            const commonName = document.createElement('h1')
-            const scientificName = document.createElement('h4')
-            const category = document.createElement('h5')
-            const description = document.createElement('p')
-            const approachable = document.createElement('p')
-            const status = document.createElement('h6')
-            const image = document.createElement('img')
-            const addAnimalButton = document.createElement('button')
-            
-            animalCard.className = "animal-card"
-            addAnimalButton.className = "add-animal-button"
-    
-            commonName.innerText = animal.common_name
-            scientificName.innerText = 'Scientific Name: ' + animal.scientific_name
-            category.innerText = 'Category: ' + animal.category
-            description.innerText = animal.description
-            approachable.innerText = animal.approachable
-            status.innerText = animal.status
-            image.src = animal.image
-            addAnimalButton.innerText = "Add Animal"
+        commonName.innerText = animal.common_name
+        scientificName.innerText = 'Scientific Name: ' + animal.scientific_name
+        category.innerText = 'Category: ' + animal.category
+        description.innerText = animal.description
+        approachable.innerText = animal.approachable
+        status.innerText = animal.status
+        image.src = animal.image
+        addAnimalButton.innerText = "Add Animal"
 
-            addAnimalButton.addEventListener('click',event => {
-                console.log(event)
-                const animalToAdd = event.target.parentNode
-                fetch(addAnimalsURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }, 
-                    body: JSON.stringify(
-                        {
-                            user_id: 1,  
-                            animal_id: animal.id
-                        }
-                    )
-                }).then(setTimeout(showUserPage, 1000))
-            })
-            
-            animalCard.appendChild(image)
-            animalCard.append(commonName, scientificName,category, description, approachable, addAnimalButton)
-            animalContainer.append(animalCard)
-            document.body.appendChild(animalContainer)
+        addAnimalButton.addEventListener('click',event => {
+            console.log(event)
+            const animalToAdd = event.target.parentNode
+            fetch(addAnimalsURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }, 
+                body: JSON.stringify(
+                    {
+                        user_id: 1,  
+                        animal_id: animal.id
+                    }
+                )
+            }).then(setTimeout(showUserPage, 1000))
+        })
+        
+        animalCard.appendChild(image)
+        animalCard.append(commonName, scientificName,category, description, approachable, addAnimalButton)
+        animalContainer.append(animalCard)
+        document.body.appendChild(animalContainer)
     }
 
    

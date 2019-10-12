@@ -3,8 +3,9 @@ Rails.application.routes.draw do
       resources :users
       # , param: :username
       
-      post 'users', to: 'users#create'
-    
+      post '/login', to: 'authentication#create'
+      get '/profile', to: 'users#profile'
+
 
       delete 'removeAnimal/:animal_id', to: 'users#remove_animal'
       post 'addAnimal', to: 'users#add_animal'

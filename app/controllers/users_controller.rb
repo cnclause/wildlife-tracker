@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
-    skip_before_action :authorize_request
+    skip_before_action :authorized, only: [:create]
     # before_action :authorize_request, except: :create
     # before_action :find_user, except: %i[create index]
 
+    def profile
+        render json: { user: UserSerializer.new(current_user) }, status: :accepted
+    end
 
     def index
         @users = User.all 
@@ -19,10 +22,11 @@ class UsersController < ApplicationController
         @user = User.create(user_params)
         
         if @user.valid?
-            @user.save
-            render json: @user, status: :created
+            # @user.save
+            @token = encode_token(user_id: @user.id)
+            render json: { user: UserSerializer.new(@user) }, status: :created
         else
-            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @user.errors.full_messages }, status: :not_acceptable
         end
     end
 

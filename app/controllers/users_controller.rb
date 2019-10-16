@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        # @user = User.find(params[:id])
 
         render json: @user, include: :animals
     end
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     private
 
     def find_user
-        @user = User.find_by_username!(params[:_username])
+        @user = User.find_by!('username': params[:_username])
         rescue ActiveRecord::RecordNotFound
             render json: { errors: 'User not found' }, status: :not_found
     end

@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideSignUp(){
         console.log('hidesignup')
         logInForm = document.querySelector(".loginForm")
-        logInForm.style.display = "none"
+        logInForm.style.display = "block"
 
         signUpForm.addEventListener('submit', event => {
             event.preventDefault()
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
     
             createUser(user)
-            signUpForm.style.display = "none"
+            signUpForm.style.display = "block"
         }) 
     } 
 
@@ -162,15 +162,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkLogIn(user){
-        fetch('http://localhost:3000/auth/login', {
+        fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
+                'Authorization': 'Bearer',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify (user)
+            body: JSON.stringify ({user})
         }).then(response => response.json())
-            .then(result => result.errors ? console.log(result.erros) : showHomePage())
+            .then(result => localStorage.setItem('jwt', result.jwt))
+        // result.errors ? console.log(result.erros) : showHomePage()
     }
+
+
 
     function showHomePage(){
         console.log('homepagehere')
@@ -283,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.append(userInfo)
     }
     initMap()
+    logIn()
     // hideMap()
     hideSignUp() 
     retrieveAnimals()

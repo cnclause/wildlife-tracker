@@ -77,11 +77,49 @@ h5 {
     margin-top: 0;
 }
 
-.signInForm {
+.form-container{
+    display:flex;
+    flex-flow: wrap;
+    justify-content: center; 
+  
+}
+
+.signUpForm{
     display: flex;
     flex-direction: column;
-    width: 200px;
-    margin-top: 5rem;
+    flex-flow: wrap;
+    justify-content: center;
+    width: 15rem;
+    padding: 2rem;
+}
+
+
+.instructions {
+    text-align: center;
+}
+
+.LoginInstructions{
+    text-align: center;
+}
+
+.newUserTitle, .currentUserTitle{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    padding: 0;
+    /* font-style: unset; */
+
+
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: center;
+    width: 15rem;
+    padding: 2rem;
+  
 }
 
 .categories {

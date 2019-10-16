@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :authorized, only: [:create]
+    
     # before_action :authorize_request, except: :create
     # before_action :find_user, except: %i[create index]
 
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        # @user = User.find(params[:id])
+        @user = User.find(params[:id])
 
         render json: @user, include: :animals
     end
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
     end
     
     def remove_animal
-        @user = User.find(1)
+        @user = User.find_by(params[:id])
         @user.animals.destroy(params[:animal_id])
     end
 
@@ -68,7 +69,7 @@ class UsersController < ApplicationController
         params.require(:user).permit(:username, :password)
     end
 
-    # def user_animal_params
-    #     params.permit(:user_id, :animal_id)
-    # end
+    def user_animal_params
+        params.permit(:user_id, :animal_id)
+    end
 end

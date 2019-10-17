@@ -63,6 +63,7 @@ input{
 
 h1 {
     margin-bottom: 0;
+    text-align: center;
 }
 
 h2 {
@@ -95,6 +96,9 @@ h5 {
     margin: 1rem;
 }
 
+#signUp:hover, #login:hover{
+    color: #be3400;
+}
 
 .instructions {
     text-align: center;
@@ -123,7 +127,6 @@ h5 {
     padding: 2rem;
     border: black solid 1px;
     margin: 1rem;
-  
 }
 
 .categories {
@@ -177,7 +180,7 @@ h5 {
     margin-top: 2rem;
     font: #020d22;
     width: 300px;
-    height: 300px;
+    height: 500px;
     margin: 1rem;
     border: solid;
     overflow: auto;

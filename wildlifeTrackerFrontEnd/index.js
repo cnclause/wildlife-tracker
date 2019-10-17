@@ -171,6 +171,7 @@ function logOut(){
         buttonContainer.style.display = "none"
         homeTitle.style.display = "none"
         userInfo.style.display = "none"
+        animalContainer.style.display = "none"
 
     }) 
     
@@ -214,9 +215,9 @@ function createCards(animal) {
 
     commonName.innerText = animal.common_name
     scientificName.innerText = 'Scientific Name: ' + animal.scientific_name
-    category.innerText = 'Category: ' + animal.category
+    // category.innerText = 'Category: ' + animal.category
     description.innerText = animal.description
-    approachable.innerText = animal.approachable
+    approachable.innerText = 'Approachability: ' + animal.approachable
     status.innerText = animal.status
     image.src = animal.image
     addAnimalButton.innerText = "Add Animal"
@@ -240,7 +241,7 @@ function createCards(animal) {
     })
 
     animalCard.appendChild(image)
-    animalCard.append(commonName, scientificName,category, description, approachable, addAnimalButton)
+    animalCard.append(commonName, scientificName, description, approachable, addAnimalButton)
     animalContainer.append(animalCard)
     document.body.appendChild(animalContainer)
 }

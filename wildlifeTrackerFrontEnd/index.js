@@ -73,11 +73,12 @@ homeButton.addEventListener("click", event => {
 })
 
 // Create User and Login/logout
-function hideSignUp(){
+function signUp(){
+    homeButton.style.display = "none"
     signUpInstructions = document.querySelector('.instructions')
-    signUpInstructions.innerText = "Create a username and password to login"
+    signUpInstructions.innerText = "Create a username and password to sign up"
     signUpTitle = document.querySelector('.newUserTitle')
-    signUpTitle.innerText = "New User"
+    signUpTitle.innerText = "New User Sign Up"
     signUpForm.addEventListener('submit', event => {
         event.preventDefault()
         let formData = new FormData(signUpForm)
@@ -103,12 +104,17 @@ function createUser(user){
         },
         body: JSON.stringify({user})
     }).then(response => response.json())
-        .then(result => result.errors ? alert(result.errors) : logIn())
+        .then(result => result.errors ? signUpError(result.errors) : logIn())
+}
+
+function signUpError(message){
+    alert(message)
+    showSignUpLogIn()
 }
 
 function logIn(){
     loginInstructions = document.querySelector('.LoginInstructions')
-    loginInstructions.innerText = "Enter your username and password to login!"
+    loginInstructions.innerText = "Enter your username and password to login"
     currentUserTitle = document.querySelector('.currentUserTitle')
     currentUserTitle.innerText = "Current User Login"
     logInForm.addEventListener('submit', event => { 
@@ -164,6 +170,8 @@ function logOut(){
         showSignUpLogIn()
         buttonContainer.style.display = "none"
         homeTitle.style.display = "none"
+        userInfo.style.display = "none"
+
     }) 
     
 }
@@ -285,12 +293,12 @@ function createUserCards(animal){
     userFlipCardFront.className = "flip-card-front"
     const userFlipCardBack = document.createElement('div')
     userFlipCardBack.className = "flip-card-back"
-    // const commonName = document.createElement('h1') 
-    // const scientificName = document.createElement('h4')
-    // const category = document.createElement('h5')
-    // const approachable = document.createElement('p')
-    // const status = document.createElement('h6')
-    // const image = document.createElement('img')
+    const commonName = document.createElement('h1') 
+    const scientificName = document.createElement('h4')
+    const category = document.createElement('h5')
+    const approachable = document.createElement('p')
+    const status = document.createElement('h6')
+    const image = document.createElement('img')
     const removeAnimalButton = document.createElement('button')
 
     removeAnimalButton.addEventListener('click',event => { 
@@ -338,7 +346,7 @@ function retrieveAnimals() {
 initMap()
 logIn()
 logOut()
-hideSignUp() 
+signUp() 
 retrieveAnimals()
 
 

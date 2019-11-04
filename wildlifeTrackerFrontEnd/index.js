@@ -272,12 +272,12 @@ function showUserPage() {
     userTitle.className = "userTitle"
     userTitle.innerText = "Animal's You've Seen!"
     
-    let map = document.getElementById("googleMap")
-    map.style.display= "block"
+    // let map = document.getElementById("googleMap")
+    // map.style.display= "block"
 
-    const mapTitle = document.createElement('h2')
-    mapTitle.className ='mapTitle'
-    mapTitle.innerText= "Mark the Sighting!"
+    // const mapTitle = document.createElement('h2')
+    // mapTitle.className ='mapTitle'
+    // mapTitle.innerText= "Mark the Sighting!"
 
     map.prepend(mapTitle)
     userInfo.append(map, userTitle)

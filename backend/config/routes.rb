@@ -3,7 +3,7 @@ Rails.application.routes.draw do
       resources :users, param: :_username
  
       
-      post '/login', to: 'authentication#create'
+      post '/loherokugin', to: 'authentication#create'
       get '/profile', to: 'users#profile'
 
 

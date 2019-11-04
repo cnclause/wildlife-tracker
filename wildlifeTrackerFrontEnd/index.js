@@ -97,7 +97,7 @@ function signUp(){
 
 function createUser(user){
     console.log("madeit")
-    fetch('http://localhost:3000/users', {
+    fetch('https://wild-lifetracker.herokuapp.com/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ function logIn(){
 }
 
 function checkLogIn(user){
-    fetch('http://localhost:3000/login', {
+    fetch('https://wild-lifetracker.herokuapp.com/login', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer',

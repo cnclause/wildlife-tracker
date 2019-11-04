@@ -143,9 +143,7 @@ function checkLogIn(user){
         },
         body: JSON.stringify ({user})
     }).then(response => response.json())
-        .then(result => result.message ? console.log(result.message): console.log("we are home"))
-            // logInError(result.message) 
-        // logInWork(result.user.id,'jwt', result.jwt))
+        .then(result => result.message ? logInError(result.message) : logInWork(result.user.id,'jwt', result.jwt))
 }
 
 function logInError(message){

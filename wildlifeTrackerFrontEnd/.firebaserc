@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "wildlife-tracker-1570125179348"
+    "default": "wildlife-tracker-1570125179348",
+    "deployment": "wildlife-tracker-73953"
   }
 }

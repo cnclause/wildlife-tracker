@@ -2,10 +2,10 @@
     let currentUserId = ''
     const allAnimals = []
 // links
-    const animalURL = 'http://localhost:3000/animals'
-    const addAnimalsURL = 'http://localhost:3000/addAnimal'
-    const removeAnimalURL = 'http://localhost:3000/removeAnimal/'
-    const userAnimalsURL = `http://localhost:3000/users/${currentUserId}`
+    const animalURL = 'https://wild-lifetracker.herokuapp.com/animals'
+    const addAnimalsURL = 'https://wild-lifetracker.herokuapp.com/addAnimal'
+    const removeAnimalURL = 'https://wild-lifetracker.herokuapp.com/removeAnimal/'
+    const userAnimalsURL = `https://wild-lifetracker.herokuapp.com/users/${currentUserId}`
 
 // Button Elements
     const mammalsButton = document.createElement("button")
@@ -143,7 +143,9 @@ function checkLogIn(user){
         },
         body: JSON.stringify ({user})
     }).then(response => response.json())
-        .then(result => result.message ? logInError(result.message) : logInWork(result.user.id,'jwt', result.jwt))
+        .then(result => result.message ? console.log(result.message): console.log("we are home"))
+            // logInError(result.message) 
+        // logInWork(result.user.id,'jwt', result.jwt))
 }
 
 function logInError(message){
